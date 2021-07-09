@@ -127,22 +127,6 @@ void append( List* list , Node* node ){
 	list->length++;
 }
 
-Node* getNodeAt( List* list , unsigned int index ){
-	unsigned int len = list->length;
-	if( len < index || index >= len ){
-		return NULL;
-	}
-
-	Node** node = &(list->head);
-	unsigned int i = 0;
-
-	while( i < index ){
-		(*node)++;
-		i++;
-	}
-	
-	return *node;
-}
 
 int insertEntryAt( List* list , Node* new , unsigned int index ){
 	if(index==list->length){
@@ -197,4 +181,22 @@ void reverseList( List* list ){
 	list->head = prev;
 }
 
+
+int* listToArray( List list ){
+	if(list.length == 0){
+		return NULL;
+	}
+
+	int* arr = malloc( list.length * sizeof(int) );
+
+	Node* curr = list.head;
+	unsigned int i = 0;
+	while(curr != NULL){
+		arr[i] = curr->data;
+		i++;
+		curr = curr->next;
+	}
+
+	return arr;
+}
 

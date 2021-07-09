@@ -33,12 +33,22 @@ int main(){
 
 	printList(lista);
 
+	Node nodo10;
+
+	nodo10.next = NULL;
+	nodo10.data = 10;
+	int res = insertEntryAt(&lista,&nodo10,6);
+
+	if(res==1){
+		puts("OK");
+		printList(lista);
+	}
+
+	int* vettore = listToArray(lista);
+	for(int i=0;i<lista.length;i++){
+		printf("| %d\n",vettore[i]);
+	}
 	
-	Node* rimosso = removeEntryAt(&lista,0);
-
-	printList(lista);
-	puts("________________");
-
-	printf("%d\n",rimosso->data);
+	free(vettore);
 }
 
