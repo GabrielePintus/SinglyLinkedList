@@ -84,6 +84,10 @@ Node** findNode( List* list , Node* node ){
 
 Node** findNodeAt( List* list , unsigned int index ){
 	
+	if(index >= list->length){
+		return NULL;
+	}
+
 	Node** curr = &(list->head);
 
 	unsigned int i = 0;
@@ -140,6 +144,25 @@ Node* getNodeAt( List* list , unsigned int index ){
 	return *node;
 }
 
+int insertEntryAt( List* list , Node* new , unsigned int index ){
+	if(index==list->length){
+		append(list,new);
+		return 1;
+	}else if(index>list->length){
+		return 0;
+	}
+
+	Node** node = findNodeAt(list,index);
+
+	if(*node == NULL){
+		return 0;
+	}
+
+	new->next = *node;
+	*node = new;
+
+	return 1;
+}
 
 void removeEntry( List* list , Node* entry ){
 	Node** node = findNode(list,entry);
@@ -154,9 +177,24 @@ Node* removeEntryAt( List* list , unsigned int index ){
 
 	removeEntry(list,node);
 	(*copy)->next = NULL;
+	list->length--;
 
 	return *copy;
 }
 
+
+void reverseList( List* list ){
+	Node* prev = NULL;
+	Node* curr = list->head;
+	Node* next = NULL;
+
+	while(curr != NULL){
+		next = curr->next;
+		curr->next = prev;
+		prev = curr;
+		curr = next;
+	}
+	list->head = prev;
+}
 
 
